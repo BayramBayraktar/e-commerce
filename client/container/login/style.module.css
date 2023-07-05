@@ -1,0 +1,145 @@
+.wrapper {
+    background-color: #f1f1f1;
+    padding-bottom: 50px;
+}
+
+.container {
+    max-width: 1280px;
+    width: 100%;
+    margin: 0px auto;
+    background-color: #fff;
+    padding: 40px 0px;
+    display: flex;
+    justify-content: center;
+
+}
+
+.column {
+    position: relative;
+    padding: 0 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.Solid {
+    border: solid 1px #6d7a83;
+    opacity: 0.2;
+}
+
+
+.title {
+    font-size: 30px;
+    color: #2f383d;
+    font-family: 'Fredoka One', cursive;
+}
+
+.input_container {
+    display: flex;
+    align-items: center;
+    border: solid 1px #d1d1d1;
+    padding: 13px 32px;
+    border-radius: 25px;
+}
+
+.input_container input {
+    width: 100%;
+    height: 100%;
+    left: 0;
+    outline: none;
+    border: none;
+}
+
+.input_container i {
+    font-size: 20px;
+}
+
+.myCheckbox_container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.myCheckbox_container label {
+    cursor: pointer;
+}
+
+.login_button {
+    padding: 13px 32px;
+    color: #fff;
+    background-color: #816fca;
+    display: inline;
+    place-self: flex-start;
+    border-radius: 25px;
+    cursor: pointer;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.forget_container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.forget_container a {
+    text-decoration: none;
+    color: #816fca;
+}
+
+
+
+.list_item_container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.list_item_container i {
+    font-size: 23px;
+    color: #fff;
+    padding: 5px;
+    background-color: #816fca;
+    border-radius: 50%;
+}
+
+
+.list_item_right {
+    display: flex;
+    flex-direction: column;
+    gap: 7.5px;
+}
+
+.list_item_title {
+    color: #6d7a83;
+    font-family: 'Quicksand', sans-serif;
+
+}
+
+.list_item_redirect_container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.list_item_redirect_container a {
+    text-decoration: none;
+    color: #816fca;
+    font-family: 'Quicksand', sans-serif;
+}
+
+
+/* resposive */
+
+@media (max-width:768px) {
+    .container {
+        flex-direction: column;
+        gap: 25px;
+        justify-content: normal;
+    }
+
+    .column {
+        padding:  0 15px;
+    }
+
+}

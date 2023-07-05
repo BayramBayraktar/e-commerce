@@ -1,0 +1,128 @@
+.wrapper {
+    overflow: hidden;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+
+.main_content {
+    display: flex;
+    padding: 25px 0px;
+    width: 100%;
+}
+
+.slider_container {
+    width: 75%;
+}
+
+.banner_Card {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 30px;
+}
+
+.banner_Card img {
+    width: 100%;
+    min-height: 300px;
+    max-height: 335px;
+    height: 100%;
+    background-color: #ff755b;
+    border-radius: 10px;
+}
+
+.banner_card_title {
+    font-size: 18px;
+    font-family: 'Fredoka One', cursive;
+    color: #45413e;
+    margin: 15px 0;
+}
+
+.banner_card_text {
+    display: inline-block;
+    font-size: 13px;
+    font-family: 'Quicksand', sans-serif;
+    color: #45413e;
+    text-align: center;
+    margin: 15px 0px;
+
+}
+
+.banner_card_button {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-family: 'Quicksand', sans-serif;
+    color: #3a5b96;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: solid 2px #3a5b96;
+    border-radius: 25px;
+    cursor: pointer;
+    margin: 10px 0px;
+}
+
+.banner_card_button i {
+    margin-right: 20px;
+}
+
+.popular_container {
+    padding: 20px 50px;
+    background-color: #262a32;
+}
+
+.Morebtn {
+    display: flex;
+    justify-content: center;
+    background-color: #262a32;
+}
+
+.Morebtn button {
+    display: flex;
+    align-items: center;
+    outline: none;
+    border: none;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding: 20px 70px;
+    font-size: 16px;
+    background-color: #8d7dcd;
+    color: #fff;
+    font-family: 'Quicksand', sans-serif;
+    cursor: pointer;
+
+}
+
+.Morebtn i {
+    margin-left: 15px;
+}
+
+@media (max-width:1024px) {
+
+    .main_content {
+        flex-direction: column;
+        padding: 0;
+    }
+
+    .slider_container {
+        width: 100%;
+        padding: 0px;
+    }
+
+    .banner_Card {
+        width: 100%;
+        margin: 0;
+        padding: 10px 15px;
+    }
+
+    .banner_Card img {
+        width: 100%;
+    }
+
+    .popular_container {
+        padding: 30px 0px;
+    }
+}

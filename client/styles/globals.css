@@ -1,0 +1,156 @@
+/* import  font-google*/
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand&family=Sniglet&display=swap');
+
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.Fixed {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+
+/* 
+  Card select color 
+*/
+
+
+.select_color_options .blue::before {
+  content: "";
+  background-color: blue;
+}
+
+.select_color_options .red::before {
+  content: "";
+  background-color: red;
+}
+
+.select_color_options .black::before {
+  content: "";
+  background-color: black;
+}
+
+
+.select_color_options .yellow::before {
+  content: "";
+  background-color: yellow;
+}
+
+
+.select_color_options .green::before {
+  content: "";
+  background-color: green;
+}
+
+
+.container_button .blue::before {
+  content: "";
+  background-color: blue;
+}
+
+.container_button .red::before {
+  content: "";
+  background-color: red;
+}
+
+.container_button .black::before {
+  content: "";
+  background-color: black;
+}
+
+
+.container_button .yellow::before {
+  content: "";
+  background-color: yellow;
+}
+
+
+.container_button .green::before {
+  content: "";
+  background-color: green;
+}
+
+
+
+/* 
+Slick carousel
+*/
+
+
+.slick-slider {
+  background-color: #31383e;
+  padding: 70px 50px;
+}
+
+.slick-dots {
+  bottom: 30px !important;
+  left: 0px;
+}
+
+.slick-dots li button:before {
+  color: #fff !important;
+}
+
+.slick-arrow {
+  display: none !important;
+}
+
+.castom_about_slider {}
+
+.castom_about_slider .slick-slider {
+  padding: 0;
+  background-color: transparent;
+}
+
+.castom_about_slider .slick-slider div div {
+  height: 150px;
+  background-color: #31383e;
+}
+
+.castom_about_slider .slick-arrow {
+  display: block !important;
+  z-index: 999;
+  height: 38px;
+  width: 38px;
+  background-color: #919496;
+}
+
+.castom_about_slider .slick-prev {
+  left: 0;
+}
+
+.castom_about_slider .slick-next {
+  right: 0;
+}
+
+.slick-prev:before {
+  content: "<" !important;
+  font-size: 30px;
+}
+
+.slick-next:before {
+  content: ">" !important;
+  font-size: 30px;
+}
+
+
+/* slider mobile */ 
+
+
+@media  (max-width:425px) {
+  .slick-slider {
+    padding: 0px 15px;
+  }
+}

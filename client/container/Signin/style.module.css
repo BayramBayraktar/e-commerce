@@ -1,0 +1,140 @@
+.wrapper {
+    width: 100%;
+    margin: 0 auto;
+    background: #f1f1f1;
+    padding-bottom: 50px;
+}
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+    max-width: 1280px;
+    padding: 40px 15px;
+    background-color: #fff;
+    display: flex;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    padding: 0 40px;
+}
+
+.title {
+    font-size: 30px;
+    color: #2f383d;
+    font-family: 'Fredoka One', cursive;
+}
+
+.text_container {
+    padding: 25px 0px;
+    font-size: 14px;
+    color: #6d7a83;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.list_items_container {
+    padding: 15px 0;
+}
+
+.list_item {
+    font-size: 14px;
+    color: #6d7a83;
+    line-height: 30px;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.list_item i {
+    border-radius: 50%;
+    border: solid 2px #816fca;
+    padding: 2px;
+    margin-right: 10px;
+}
+
+.banner_container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.banner_item {
+    width: 33.33%;
+}
+
+.input_wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.input_container {
+    display: flex;
+    align-items: center;
+    padding: 0px 30px;
+    border: solid 1px #2f383d;
+    border-radius: 25px;
+}
+
+.input_container input {
+    width: 100%;
+    outline: none;
+    border: none;
+    height: 100%;
+    padding: 10px 0;
+
+}
+
+.input_container i {
+    font-size: 20px;
+    color: #6d7a83;
+}
+
+.checkbox_container {
+    display: flex;
+    align-items: center;
+    color: #6d7a83;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.checkbox_container label {
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+.submit_button {
+    background: #816fca;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 25px;
+    align-self: flex-start;
+    cursor: pointer;
+}
+
+.password_border {
+    border: solid 1px red !important;
+}
+
+.success_message {
+    color: green;
+}
+
+.unsuccess_message {
+    color: red;
+}
+
+.checkbox_container input[type="checkbox"]:required:invalid {
+    outline: 1px solid red;
+}
+
+
+@media (max-width:768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .column {
+        width: 100%;
+    }
+}

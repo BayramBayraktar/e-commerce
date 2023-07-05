@@ -1,0 +1,77 @@
+.wrapper {
+    background: #f1edea;
+}
+
+.container {
+    padding: 50px 100px;
+    background: #fff;
+    margin: 0 30px 50px 30px;
+    display: flex;
+}
+
+.container .banner {
+    font-family: 'Fredoka One', cursive;
+    font-size: 113px;
+    color: #816fca;
+}
+
+.container .content {
+    margin-left: 100px;
+}
+
+.content .content_title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 24px;
+    color: #000;
+}
+
+.content_text {
+    color: #555555;
+    font-size: 16px;
+    font-family: 'Quicksand', sans-serif;
+    margin: 10px 0;
+    line-height: 25px;
+}
+
+.go_back_btn {
+    text-decoration: none;
+    color: #816fca;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 16px;
+}
+
+.search_section {
+    display: flex;
+    flex-direction: column;
+    margin-top: 80px;
+}
+
+.search_section .search_text {
+    font-family: 'Fredoka One', cursive;
+    font-size: 24px;
+    color: #000;
+}
+
+
+.search_bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    border: solid 1px gray;
+    padding: 0 7px 0 0;
+    border-radius: 50px;
+}
+
+.search_bar input {
+    width: 100%;
+    padding: 10px 25px;
+    outline: none;
+    border: none;
+    background-color: transparent;
+}
+
+.search_bar i {
+    font-size:18px;
+    transform: rotateY(180deg);
+}

@@ -1,0 +1,5 @@
+This project only includes user email confirmation, user login, sorting products according to trend order, etc. Adding items to the cart, purchasing items from the cart, payment system will not load products when you download this project. so you will need to make a request with postman for product.model.js in a suitable structure in the models folder in the api/product/create area.
+
+You can ask your questions here
+contact
+https://www.linkedin.com/in/bayram-bayraktar-43baa221a/

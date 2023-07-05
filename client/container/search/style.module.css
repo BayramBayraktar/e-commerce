@@ -1,0 +1,73 @@
+.wrapper {
+    background-color: #f1f1f1;
+    padding: 15px;
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0px auto;
+    width: 100%;
+}
+
+.search_brief {
+    margin: 50px 0 0 35px;
+    font-size: 18px;
+    color: #816fca;
+    font-weight: 600;
+    font-family: 'Quicksand', sans-serif;
+}
+
+
+.brief_mark {
+    color: #000;
+}
+
+
+.search_result {
+    margin: 15px 0px;
+    background-color: #fff;
+    padding: 25px 30px;
+    border-radius: 10px;
+}
+
+.result_titles {}
+
+.result_title {
+    display: block;
+    color: #45413e;
+    font-size: 16px;
+    font-family: 'Sniglet', cursive;
+}
+
+.result_date {
+    display: block;
+    color: #bdc3c7;
+    font-size: 14px;
+    font-family: 'Fredoka One', cursive;
+    margin-top: 10px;
+}
+
+.result_text {
+    color: #6d7a83;
+    font-size: 14px;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.more_btn {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    color: #fff;
+    background-color: #816fca;
+    display: inline-block;
+    padding: 13px 35px;
+    border-radius: 38px;
+    cursor: pointer;
+}
+
+@media (max-width:425px) {
+    .search_brief {
+        margin: 0;
+        font-size: 10px;
+    }
+}
