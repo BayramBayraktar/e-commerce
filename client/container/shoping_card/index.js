@@ -1,6 +1,8 @@
+
 import { useEffect, useState } from 'react'
 import axios from "axios"
 import Style from './style.module.css'
+import { motion } from 'framer-motion'
 
 //redux
 import { useDispatch, useSelector } from 'react-redux'
@@ -92,7 +94,13 @@ const Shoping_card_detail = () => {
 
 
     return (
-        <div className={Style.wrapper}>
+        <motion.div
+            className={Style.wrapper}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ delay: 0.2 }}
+        >
             <Page_detail_header title='SHOPPING CART' extra_text="Cart" />
             <div className={Style.container}>
                 <div className={Style.cards}>
@@ -168,7 +176,7 @@ const Shoping_card_detail = () => {
                 </div>
             </div>
             <Banner_2 />
-        </div >
+        </motion.div >
     )
 }
 

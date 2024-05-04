@@ -19,7 +19,13 @@
     padding: 0 100px;
     display: flex;
     flex-direction: column;
+}
+.formGap {
+    display: flex;
+    flex-direction: column;
     gap: 20px;
+    margin-bottom: 20px;
+
 }
 
 .Solid {

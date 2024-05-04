@@ -1,5 +1,4 @@
 import React from 'react'
-
 //layout 
 import Layout from '../layout/main'
 //content

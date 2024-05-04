@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import Style from './style.module.css'
+import { motion } from 'framer-motion'
 
 //components
 import Page_detail_header from '../../components/page_detail_header'
@@ -8,7 +9,13 @@ import Banner_2 from '../../components/banner-2'
 
 const Categories = () => {
     return (
-        <div className={Style.Wrapper}>
+        <motion.div
+            className={Style.Wrapper}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ delay: 0.2 }}
+        >
             <Page_detail_header title="ALL CATEGORIES" />
             <div className={Style.container} >
                 <Link href='/arvi' className={Style.content_big}>
@@ -39,7 +46,7 @@ const Categories = () => {
                 </Link>
             </div>
             <Banner_2 />
-        </div>
+        </motion.div>
     )
 }
 

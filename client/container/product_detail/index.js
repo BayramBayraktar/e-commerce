@@ -1,116 +1,132 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
+import Styles from './style.module.css'
+import { useDispatch, useSelector } from 'react-redux'
+import { setCard } from '../../Store/CurrentUserSlice'
 import OutsideClickHandler from 'react-outside-click-handler'
-import styleCss from './style.module.css'
+import axios from 'axios'
+import { motion } from 'framer-motion'
+import { Tooltip } from 'react-tooltip'
+
 //components
 import Page_detail_header from '../../components/page_detail_header'
 import Banner_2 from '../../components/banner-2'
 
-const Product_detail = () => {
+const Product_detail = ({ cardData }) => {
+    const dispatch = useDispatch()
+    const { card } = useSelector((state) => state.CurrentUser)
 
     const [color_visibility, setcolor_visibility] = useState(false)
     const [productCount, setPorductCount] = useState(1)
     const [select_color, setSelect_color] = useState("")
+    const [productCatalogColor, setproductCatalogColor] = useState([])
     const [select_color_text, setSelect_color_text] = useState("select color")
     const [active_section, setActive_section] = useState("Description")
 
+
+    useEffect(() => {
+        setproductCatalogColor([...cardData.product_colors])
+    }, [])
+
     const handleSelectColor = (color, text) => {
+        const filterColor = cardData.product_colors.filter((i) => i !== text)
+        setproductCatalogColor(filterColor)
         setSelect_color(color)
         setSelect_color_text(text)
         setcolor_visibility(false)
     }
 
+    const handler_add_to_card = async (product) => {
+        await axios.put(`${process.env.API_URL}/api/card/addtocard`, {
+            product_id: product._id
+        }, { withCredentials: true }).then((response) => {
+            const { success } = response?.data
+            if (success) {
+                dispatch(setCard([...card, {
+                    quatitiy: 1,
+                    product
+                }]))
+            }
+        })
+    }
 
-    /* Select_color data */
-    const product_catalog_color = [
-        {
-            "color": "red",
-            "name": "Gray Red"
-        },
-        {
-            "color": "blue",
-            "name": "Gray Blue"
-        },
-        {
-            "color": "black",
-            "name": "Gray Black"
-        },
-
-    ]
 
     return (
-        <div className={`${styleCss.wrapper} product_detail`}>
-            <Page_detail_header title={'Atadasdsada'} />
-            <div className={styleCss.container}>
-                <div className={styleCss.shoping_card}>
-                    <div className={styleCss.col}>
-                        <img className={styleCss.Preview} src="" alt='' />
+        <motion.div
+            className={`${Styles.wrapper} product_detail`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ delay: 0.2 }}
+        >
+            <Page_detail_header title={cardData.product_title} />
+            <div className={Styles.container}>
+                <div className={Styles.shoping_card}>
+                    <div className={Styles.col}>
+                        <img className={Styles.Preview} src={`${process.env.API_URL}/Uploads/img/${cardData.image[0]}`} alt='' />
                     </div>
-                    <div className={styleCss.col}>
-                        <div className={styleCss.blocks_items}>
-                            <div className={styleCss.block_item}>
+                    <div className={Styles.col}>
+                        <div className={Styles.blocks_items}>
+                            <div className={Styles.block_item}>
                                 <img src="" alt='' />
                             </div>
-                            <div className={styleCss.block_item}>
+                            <div className={Styles.block_item}>
                                 <img src="" alt='' />
                             </div>
-                            <div className={styleCss.block_item}>
+                            <div className={Styles.block_item}>
                                 <img src="" alt='' />
                             </div>
-                            <div className={styleCss.block_item}>
+                            <div className={Styles.block_item}>
                                 <img src="" alt='' />
                             </div>
-                            <div className={styleCss.block_item}>
+                            <div className={Styles.block_item}>
                                 <img src="" alt='' />
                             </div>
                         </div>
-                        <div className={styleCss.shoping_content}>
-                            <span className={styleCss.card_title}>$299.99</span>
-                            <div className={styleCss.select_color}>
+                        <div className={Styles.shoping_content}>
+                            <span className={Styles.card_title}>${cardData.product_price}</span>
+                            <div className={Styles.select_color}>
 
-                                <div className={`${styleCss.select_color_button_container} container_button `}>
+                                <div className={`${Styles.select_color_button_container} container_button `}>
                                     <OutsideClickHandler onOutsideClick={() => setcolor_visibility(false)}>
-                                        <div onClick={() => setcolor_visibility(true)} className={`${styleCss.select_button} ${select_color}`}>
+                                        <div onClick={() => setcolor_visibility(true)} className={`${Styles.select_button} ${select_color}`}>
                                             <span>{select_color_text}</span>
                                             <i class="ri-arrow-down-s-fill"></i>
                                         </div>
                                         {
                                             color_visibility && (
-                                                <div className={`${styleCss.select_color_options} select_color_options`}>
-                                                    {product_catalog_color.map((item) => (
+                                                <div className={`${Styles.select_color_options} select_color_options`}>
+                                                    {productCatalogColor?.map((item) => (
                                                         <span
-                                                            onClick={() => handleSelectColor(item.color, item.name)}
-                                                            className={`${item.color}`}>
-                                                            {item.name}
+                                                            onClick={() => handleSelectColor(item, item)}
+                                                            className={`${item}`}>
+                                                            {item}
                                                         </span>
                                                     ))}
                                                 </div>
                                             )
                                         }
                                     </OutsideClickHandler>
-
                                 </div>
-
                             </div>
 
-                            <div className={styleCss.row}>
-                                <span className={styleCss.counter_container}>
-                                    <span onClick={() => { setPorductCount(productCount + 1) }} >+</span>
-                                    <span className={styleCss.counterValue}>{productCount}</span>
-                                    <span onClick={() => { productCount > 1 && setPorductCount(productCount - 1) }} >-</span>
+                            <div className={Styles.row}>
+                                <span className={Styles.counter_container}>
+                                    <span onClick={() => { productCount > 1 && setPorductCount(productCount - 1) }}>-</span>
+                                    <span className={Styles.counterValue}>{productCount}</span>
+                                    <span onClick={() => { setPorductCount(productCount + 1) }}>+</span>
                                 </span>
-                                <button className={styleCss.Add_card}>Add To Card</button>
+
+                                <Tooltip id="my-tooltip" />
+                                <button onClick={() => handler_add_to_card(cardData)} disabled={!card} data-tooltip-id="my-tooltip" data-tooltip-content={!card ? 'To add products to your cart, you must first log in!' : 'Add to Card'} className={Styles.Add_card}>Add To Card</button>
+                            </div>
+                            <div className={Styles.card_description}>
+                                {cardData.description}
                             </div>
 
-                            <div className={styleCss.card_description}>
-                                sed ur ajdaos ıaefme ımefm eaoaooaoaf femıfe mf ımefıemfe mıemıwcmıe mıecme mevvımevm  evm evımm evımev
-                            </div>
-
-                            <div className={styleCss.socialapps}>
+                            <div className={Styles.socialapps}>
                                 <span>
-                                    <Link href="/" >
-                                        Share
-                                    </Link>
+                                    Share
                                 </span>
                                 <span>
                                     <Link href='/' >
@@ -136,47 +152,35 @@ const Product_detail = () => {
                         </div>
                     </div>
                 </div>
-                <div className={styleCss.card_detail}>
-                    <div className={styleCss.detail_navigation}>
-                        <button onClick={() => setActive_section('Description')} className={active_section == 'Description' && styleCss.detail_active}>
+                <div className={Styles.card_detail}>
+                    <div className={Styles.detail_navigation}>
+                        <button onClick={() => setActive_section('Description')} className={active_section == 'Description' && Styles.detail_active}>
                             Description
                         </button>
-                        <button onClick={() => setActive_section('Additional')} className={active_section == 'Additional' && styleCss.detail_active} >
+                        <button onClick={() => setActive_section('Additional')} className={active_section == 'Additional' && Styles.detail_active} >
                             Additional Information
                         </button>
-                        <button onClick={() => setActive_section('Reviews')} className={active_section == 'Reviews' && styleCss.detail_active}>
+                        <button onClick={() => setActive_section('Reviews')} className={active_section == 'Reviews' && Styles.detail_active}>
                             Reviews (3)
                         </button>
                     </div>
-                    <div className={styleCss.detail_content}>
-                        <div className={active_section == 'Description' && styleCss.active_section}>
-                            <span>
-                                Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
-                            </span>
-                            <span>
-                                Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis,
-                                ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-                            </span>
-                        </div>
-
-                        <div className={active_section == 'Additional' && styleCss.active_section}>
-                            İKİNCİ
-                            <span>
-                                Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
-                            </span>
-                            <span>
-                                Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis,
-                                ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-                            </span>
-                        </div>
+                    <div className={Styles.detail_content}>
+                        {active_section == 'Description' && (
+                            <div className={Styles.active_section}>
+                                <span>{cardData.description}</span>
+                            </div>
+                        )}
+                        {active_section == 'Additional' && (
+                            <div className={Styles.active_section}>
+                                <span>{cardData.additionalInfo}</span>
+                            </div>
+                        )}
                     </div>
                 </div>
 
             </div>
             <Banner_2 />
-        </div >
+        </motion.div >
     )
 }
 

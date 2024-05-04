@@ -4,19 +4,19 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import OutsideClickHandler from 'react-outside-click-handler'
 import styleCss from './style.module.css'
+import { motion } from 'framer-motion'
 
 //components
 import Page_detail_header from '../../components/page_detail_header'
 import Banner_2 from '../../components/banner-2'
 
 
-const Product = () => {
-
+const Product = ({ response }) => {
     const router = useRouter()
 
     const [select_product_list_type, Setselect_product_list_type] = useState("All")
     const [select_product_list_visibility, Setselect_product_list_visibility] = useState(false)
-    const [Products, setProducts] = useState([])
+    const [Products, setProducts] = useState(response)
 
     const handleSelectProductList = (value) => {
         Setselect_product_list_type(value)
@@ -30,11 +30,14 @@ const Product = () => {
             if (router.query?.product) {
                 axios.get(`${process.env.API_URL}/api/product/${router.query?.product}/${select_product_list_type}`).then((result) => {
                     const { data } = result
-                    if (data) {
-                        setProducts(data)
+                    console.log(result)
+                    if (data.response.length) {
+                        setProducts(data.response)
+                    } else {
+                        router.push('/categories')
                     }
                 }).catch((err) => {
-                    console.log(err)
+                    router.push('/categories')
                 });
             }
         }
@@ -43,8 +46,14 @@ const Product = () => {
 
 
     return (
-        <div className={styleCss.wrapper}>
-            <Page_detail_header title={'deneme'} />
+        <motion.div
+            className={styleCss.wrapper}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ delay: 0.2 }}
+        >
+            <Page_detail_header title={router?.query?.product} />
             <div className={styleCss.container}>
                 <div className={styleCss.content_filter}>
                     <OutsideClickHandler onOutsideClick={() => Setselect_product_list_visibility(false)}>
@@ -77,7 +86,7 @@ const Product = () => {
                             }
                         </div>
                     </OutsideClickHandler>
-                    <div className={styleCss.content_filter_center}> {Products.length}, result in {router?.query?.product}</div>
+                    <div className={styleCss.content_filter_center}> {response?.length}, result in {router?.query?.product}</div>
                     <div className={styleCss.content_filter_right}>
                         <span>info</span>
                         <i class="ri-information-line"></i>
@@ -140,7 +149,7 @@ const Product = () => {
 
                         {
                             Products?.map((product, key) => (
-                                <Link key={key} href='/' className={styleCss.card}>
+                                <Link href={`/${product.catalog_name}/${product._id}`} key={key} className={styleCss.card}>
                                     <img src={`${process.env.API_URL}/Uploads/img/${product.image[0]}`} alt='' />
                                     <div className={styleCss.card_detail}>
                                         <span className={styleCss.card_title}>{product.product_title}</span>
@@ -155,7 +164,7 @@ const Product = () => {
                 </div>
             </div>
             <Banner_2 />
-        </div>
+        </motion.div>
     )
 }
 

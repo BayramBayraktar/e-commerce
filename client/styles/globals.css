@@ -1,7 +1,6 @@
 /* import  font-google*/
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand&family=Sniglet&display=swap');
 
-
 html,
 body {
   padding: 0;
@@ -154,3 +153,38 @@ Slick carousel
     padding: 0px 15px;
   }
 }
+
+
+/* CSSTransition classes  */
+
+.menu-primary-enter {
+  position: absolute;
+  transform: translateX(-110%);
+}
+.menu-primary-enter-active {
+  transform: translateX(0%);
+  transition: all 100ms ease;
+}
+.menu-primary-exit {
+  position: absolute;
+}
+.menu-primary-exit-active {
+  transform: translateX(-110%);
+  transition: all 100ms ease;
+}
+
+
+
+.menu-secondary-enter {
+  transform: translateX(110%);
+}
+.menu-secondary-enter-active {
+  transform: translateX(0%);
+  transition: all 100ms ease;
+}
+
+.menu-secondary-exit-active {
+  transform: translateX(110%);
+  transition: all 100ms ease;
+}
+  

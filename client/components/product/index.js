@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { setCard } from '../../Store/CurrentUserSlice'
+import Link from 'next/link'
 import axios from 'axios'
-import PopularCss from './style.module.css'
+import Styles from './style.module.css'
 import { ToastContainer, toast } from 'react-toastify';
 
 
 const Products_Container = (props) => {
-
     const dispatch = useDispatch()
     const { currentUser, card } = useSelector((state) => state.CurrentUser)
     const [products, setProduct] = useState("")
@@ -16,21 +16,21 @@ const Products_Container = (props) => {
         if (props.title === "POPULAR ITEM") {
             axios.get(`${process.env.API_URL}/api/product/allproduct/popular?limit=4`).then((res) => {
                 if (res?.data) {
-                    setProduct(res?.data)
+                    setProduct(res?.data?.response)
                 }
             })
         }
         if (props.title === "NEW ITEM") {
             axios.get(`${process.env.API_URL}/api/product/allproduct/new?limit=4`).then((res) => {
                 if (res?.data) {
-                    setProduct(res?.data)
+                    setProduct(res?.data?.response)
                 }
             })
         }
         if (props.title === "Products") {
             axios.get(`${process.env.API_URL}/api/product/allproduct/all?limit=8`).then((res) => {
                 if (res?.data) {
-                    setProduct(res?.data)
+                    setProduct(res?.data?.response)
                 }
             })
         }
@@ -45,7 +45,7 @@ const Products_Container = (props) => {
                 dispatch(setCard([
                     ...card,
                     {
-                        quatitiy: 1, // default number
+                        quatitiy: 1,
                         product
                     }
                 ]))
@@ -92,27 +92,28 @@ const Products_Container = (props) => {
 
 
     return products.length !== 0 && (
-        <div className={PopularCss.container}>
+        <div className={Styles.container}>
             <ToastContainer />
-            <div className={PopularCss.title}>
+            <div className={Styles.title}>
                 {props.title}
             </div>
-            <div className={PopularCss.row}>
-                {products.length !== 0 && products.map((product, key) => (
-                    <div key={key} className={PopularCss.card}>
+            <div className={Styles.row}>
+                {products?.map((product, key) => (
+                    <div key={key} className={Styles.card}>
                         <img src={`${process.env.API_URL}/Uploads/img/${product.image[0]}`} alt='' />
-                        <div className={PopularCss.card_details}>
-                            <span className={PopularCss.card_title}>{truncateTitle(product.product_title, 30)}</span>
-                            <span className={PopularCss.card_price}>{`${product.product_price} $`}</span>
+                        <div className={Styles.card_details}>
+                            <span className={Styles.card_title}>{truncateTitle(product.product_title, 30)}</span>
+                            <span className={Styles.card_price}>{`$${product.product_price}`}</span>
                         </div>
-                        <div className={PopularCss.card_hover_screen}>
-                            <span onClick={() => handler_add_to_card(product)} className={PopularCss.add}><i class="ri-add-line"></i></span>
-                            <span onClick={() => handler_add_to_favorite(product)} className={PopularCss.heart}><i class="ri-heart-fill"></i></span>
+                        <div className={Styles.card_hover_screen} >
+                            <Link className={Styles.card_hover_bg_drop} href={`/${product.catalog_name}/${product._id}`}></Link>
+                            <span onClick={() => handler_add_to_card(product)} className={Styles.add}><i class="ri-add-line"></i></span>
+                            <span onClick={() => handler_add_to_favorite(product)} className={Styles.heart}><i class="ri-heart-fill"></i></span>
                         </div>
                     </div>
                 ))}
             </div>
-        </div>
+        </div >
     )
 }
 

@@ -4,15 +4,14 @@ const Jwt = require('jsonwebtoken')
 const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY)
 
 
-
-
 exports.addToCard = async (req, res) => {
     try {
         const current_user = req.user;
         const product_id = req.body.product_id
+        const shoppingCard = current_user.shoping_card
+        const foundProduct = shoppingCard.find(products => products.product == product_id)
 
-        const addedProduct = await User_schma.findOne({ _id: current_user.shoping_card })
-        if (addedProduct) {
+        if (foundProduct) {
             res.json({ success: false, message: "The product has already been added!" })
         } else {
             await User_schma.findByIdAndUpdate(current_user, {
@@ -82,44 +81,12 @@ exports.RemoveToCard = async (req, res) => {
 
 }
 
-exports.CreateCheckoutSession = async (req, res) => {
-    try {
-        const { items } = req.body
-        let token
-        if (items) {
-            token = Jwt.sign({ items }, process.env.JWT_SECRET_KEY)
-        }
-
-        const session = await stripe.checkout.sessions.create({
-            payment_method_types: ['card'],
-            line_items: items.map(item => ({
-                price_data: {
-                    currency: 'usd',
-                    product_data: {
-                        name: item.product.product_title,
-                    },
-                    unit_amount: item.product.product_price * 100,
-                },
-                quantity: item.quantity,
-            })),
-            mode: 'payment',
-            success_url: `${process.env.BASE_URL}/payment/success/${token}`,
-            cancel_url: `${process.env.BASE_URL}/payment/cancel`,
-        });
-
-        res.json({ url: session.url });
-
-    } catch (error) {
-        console.log(error)
-    }
-}
-
 exports.ClearToCard = async (req, res) => {
     try {
         const token = req.query.token
         if (token) {
             const decoded = await Jwt.verify(token, process.env.JWT_SECRET_KEY)
-            const removeIds = decoded.map(item => item.product); // decoded'dan ürün id'lerini alın
+            const removeIds = decoded.map(item => item.product);
 
             if (decoded.length > 0) {
                 await User_schma.findByIdAndUpdate({ _id: req.user._id }, {
@@ -153,4 +120,61 @@ exports.shopping_Card_Quantitiy = async (req, res) => {
 
 }
 
+//stripe method 1
+exports.CreateCheckoutSession = async (req, res) => {
+    try {
+        const { items } = req.body
+        let token
+        if (items) {
+            token = Jwt.sign({ items }, process.env.JWT_SECRET_KEY)
+        }
 
+        const session = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            line_items: items.map(item => ({
+                price_data: {
+                    currency: 'usd',
+                    product_data: {
+                        name: item.product.product_title,
+                    },
+                    unit_amount: item.product.product_price * 100,
+                },
+                quantity: item.quantity,
+            })),
+            mode: 'payment',
+            success_url: `${process.env.BASE_URL}/payment/success/${token}`,
+            cancel_url: `${process.env.BASE_URL}/payment/cancel`,
+        });
+
+        res.json({ url: session.url });
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+//stripe method 2
+exports.CreateCustomers = async (req, res) => {
+    try {
+        const { amount, token } = req.body;
+
+        stripe.customers
+            .create({
+                source: token.id,
+                name: token.card.name,
+            })
+            .then((customer) => {
+                return stripe.charges.create({
+                    amount: parseFloat(amount) * 100,
+                    description: `Payment for USD ${parseFloat(amount) * 100}`,
+                    currency: "USD",
+                    customer: customer.id,
+                });
+            })
+            .then((charge) => res.status(200).send(charge))
+            .catch((err) => console.log(err));
+
+    } catch (error) {
+        console.log(error)
+    }
+}

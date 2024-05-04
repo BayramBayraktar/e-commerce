@@ -150,6 +150,11 @@
     cursor: pointer;
 }
 
+.Add_card:disabled {
+    opacity: 0.5;
+    cursor: no-drop;
+}
+
 .card_description {
     margin-top: 40px;
     font-size: 16px;
@@ -215,12 +220,13 @@
     background-color: #fff;
 }
 
-.detail_content {}
 
 
-.detail_content div {
-    display: none;
+.detail_content .Section {
+    
 }
+
+
 
 .detail_content .active_section {
     width: 100%;
@@ -228,15 +234,25 @@
     display: flex;
     justify-content: space-between;
     overflow-wrap: break-word;
+
 }
 
+
 .detail_content .active_section span {
-    width: 45%;
     color: #555555;
     font-size: 16px;
     font-family: 'Quicksand', sans-serif;
     line-height: 27px;
 }
+
+.textRow {
+    width: 100%;
+}
+
+.textCol {
+    width: 40%;
+}
+
 
 
 @media (max-width:768px) {

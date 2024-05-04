@@ -1,6 +1,7 @@
 import React from 'react'
 import styleCss from './style.module.css'
 import Slider from 'react-slick';
+import { motion } from 'framer-motion'
 
 import Page_detail_header from '../../components/page_detail_header';
 
@@ -15,7 +16,13 @@ const About_page = () => {
     };
 
     return (
-        <div className={styleCss.wrapper}>
+        <motion.div
+            className={styleCss.wrapper}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ delay: 0.2 }}
+        >
             <div className={styleCss.about_container}>
                 <Page_detail_header title="About" />
                 <div className={styleCss.contnet}>
@@ -90,7 +97,7 @@ const About_page = () => {
                 </div>
 
             </div>
-        </div>
+        </motion.div>
 
     )
 }

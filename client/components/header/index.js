@@ -3,6 +3,7 @@ import Link from 'next/link'
 import axios from 'axios'
 import StyleHeader from './style.module.css'
 import jwt from 'jsonwebtoken'
+import { motion } from 'framer-motion'
 import OutsideClickHandler from 'react-outside-click-handler'
 //redux
 import { useSelector, useDispatch } from 'react-redux'
@@ -36,6 +37,7 @@ const Header = () => {
     }, [currentUser])
 
 
+
     const Logout = async () => {
         // withCredentials will remain true because it is communicating with a different server
         await axios.get(`${process.env.API_URL}/api/user/logout`, { withCredentials: true }).then((response) => {
@@ -47,12 +49,17 @@ const Header = () => {
     }
 
     return (
-        <header className={StyleHeader.header}>
+        <motion.header
+            className={StyleHeader.header}
+            initial={{ opacity: 0, translateY: -50, }}
+            animate={{ opacity: 1, translateY: 0, }}
+            transition={{ delay: 0.2 }}
+        >
             <div className={StyleHeader.row}>
                 <div className={StyleHeader.col}>
                     <div className={StyleHeader.Brand}>
                         <Link href="/">
-                            BRAND
+                            ES-HOP
                         </Link>
                     </div>
                     <div className={StyleHeader.medium_size_screen}>
@@ -110,7 +117,7 @@ const Header = () => {
                 <Header_Navigator />
             </div>
             <Shopping_card current={currentUser?.User} visibility={Shoping_card_visibility} setVisibility={setShoping_card_visibility} />
-        </header >
+        </motion.header >
     )
 }
 

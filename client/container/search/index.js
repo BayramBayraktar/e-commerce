@@ -1,12 +1,18 @@
 import React from 'react'
 import Style from './style.module.css'
-
+import { motion } from 'framer-motion'
 //component
 import Page_detail_header from '../../components/page_detail_header'
 
 const Search_page = () => {
     return (
-        <div className={Style.wrapper}>
+        <motion.div
+            className={Style.wrapper}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ delay: 0.2 }}
+        >
             <Page_detail_header title={'SEARCH RESULT'} />
             <div className={Style.container}>
                 <div className={Style.search_brief}>
@@ -71,7 +77,7 @@ const Search_page = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </motion.div>
 
     )
 }

@@ -2,6 +2,11 @@ const mongoose = require('mongoose')
 const { ObjectId } = mongoose.Schema.Types
 
 const ProductModel = new mongoose.Schema({
+    By_Id: {
+        type: ObjectId,
+        require: true,
+        ref: 'user'
+    },
     product_title: {
         type: String,
         required: true,
@@ -48,10 +53,12 @@ const ProductModel = new mongoose.Schema({
         required: true
     },
     pageviews: {
-        type: Number
+        type: Number,
+        default: 0
     },
     NumberOfSales: {
-        type: Number
+        type: Number,
+        default: 0
     }
 
 }, { timestamps: true })

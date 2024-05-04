@@ -1,13 +1,15 @@
-import React, { useState } from 'react'
-//style
+import { useState } from 'react'
 import Style from './style.module.css'
 import axios from 'axios'
-
+import { useMutation } from '@apollo/client'
+import { ADD_USER } from '../../graphQl/Mutations'
+import { motion } from 'framer-motion'
 //component
 import Page_detail_header from '../../components/page_detail_header'
 
 
 const Signin_page = () => {
+    const [AddnewUser, { loading, error, data }] = useMutation(ADD_USER);
 
     const [state, setState] = useState({
         name: "",
@@ -22,6 +24,7 @@ const Signin_page = () => {
         message: "",
         success: false
     });
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -39,6 +42,18 @@ const Signin_page = () => {
         }
 
         if (state.isChacked == true && state.name !== "" && state.password === state.password_1 && state.e_posta !== "" && state.phone_number !== "" && state.location !== "") {
+            /*  const result = await AddnewUser({
+                 variables: {
+                     name: state.name,
+                     phone_number: state.phone_number,
+                     e_posta: state.e_posta,
+                     password: state.password,
+                     location: state.location,
+                 },
+             });
+  */
+
+
             await axios.post(`${process.env.API_URL}/api/user/signin`, {
                 name: state.name,
                 password: state.password,
@@ -48,13 +63,20 @@ const Signin_page = () => {
             }).then((result) => {
                 setState({ ...state, message: result.data.message, success: result.data.success })
             }).catch((err) => {
-                console.log(err)
+                const result = err.response
+                setState({ ...state, message: result.data.message, success: result.data.success })
             });
         }
 
     }
     return (
-        <div className={Style.wrapper}>
+        <motion.div
+            className={Style.wrapper}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ delay: 0.2 }}
+        >
             <Page_detail_header title='SIGN IN' />
             <div className={Style.container}>
                 <div className={Style.column}>
@@ -146,7 +168,7 @@ const Signin_page = () => {
                     </form>
                 </div>
             </div>
-        </div >
+        </motion.div >
     )
 }
 

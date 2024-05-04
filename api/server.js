@@ -5,6 +5,8 @@ const bodyparser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 const cookiParser = require('cookie-parser');
+const { graphqlHTTP } = require('express-graphql')
+const schema = require('./schemas/index')
 
 /*dotenv path*/
 require('dotenv').config({
@@ -15,11 +17,17 @@ require('dotenv').config({
 Connect_Db()
 
 App.use(express.static('public'))
-
 App.use(bodyparser.json())
 App.use(express.urlencoded({ extended: false }));
 App.use(cookiParser());
 App.use(cors({ origin: process.env.BASE_URL, credentials: true }));
+
+
+/* graphql endpoint */
+App.use('/graphql', graphqlHTTP({
+    schema,
+    graphiql: process.env.NODE_ENV === "development",
+}))
 
 /*Routes*/
 App.use('/api', require('./routes/index'));

@@ -37,8 +37,16 @@
     top: 0px;
     width: 100%;
     height: 100%;
-    background-color: #8d7dcdd9;
     display: none;
+    z-index: 9;
+}
+
+.card_hover_bg_drop {
+    background-color: #8d7dcdd9;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: -9;
 }
 
 

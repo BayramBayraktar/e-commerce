@@ -1,6 +1,7 @@
 import React from 'react'
 import Style from './style.module.css'
 import Main_Slider from '../../components/Main_slider'
+import { motion } from "framer-motion"
 
 //components
 import Product from '../../components/product'
@@ -9,7 +10,13 @@ import Banner_2 from '../../components/banner-2'
 
 const Home_Page = () => {
     return (
-        <div className={Style.wrapper}>
+        <motion.div
+            className={Style.wrapper}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ delay: 0.2 }}
+        >
             <div className={Style.main_content}>
                 <div className={Style.slider_container}>
                     <Main_Slider />
@@ -33,7 +40,7 @@ const Home_Page = () => {
                 <button>WIEV MORE <i class="ri-refresh-line"></i></button>
             </div>
             <Banner_2 />
-        </div >
+        </motion.div >
     )
 }
 
