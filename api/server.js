@@ -38,6 +38,6 @@ if (process.env.NODE_ENV === "development") {
 }
 
 /* listening port  */
-App.listen(process.env.PORT || 5000, () => {
+App.listen(process.env.PORT || 80, () => {
     console.log(`${process.env.PORT} port serverin runing`)
 })

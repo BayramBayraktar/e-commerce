@@ -1,8 +1,9 @@
-name: Deloy node App
+name: Deploy Node App
+
 on:
-    push:
-        branches:
-            - mern-ec2-docker
+  push:
+      branches:
+          - mern-ec2-docker
 jobs: 
     build:
         runs-on: ubuntu-latest
@@ -12,16 +13,16 @@ jobs:
             - name: Login to docker hub
               run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}} 
             - name: Build Docker Image
-              run: docker build -t integrationninjas/nodejs-app .
+              run: docker build -t bayrambayraktar/node-product-user-service .
             - name: Publish Image to docker hub 
-              run: docker push integrationninjas/nodejs-app:latest
+              run: docker push bayrambayraktar/node-product-user-service:latest
         
     deploy:
         needs: build
         runs-on: self-hosted
         steps:
-          - name: pull image from docker hub
-            run: docker pull integrationninjas/nodejs-app:latest
-          - name: Run docker Container
-            run: docker run -d  -p 4000:4000 --name nodejs-app-container -e MONGO_URL='${{secrets.MONGO_URL}}' integrationninjas/nodejs-app
+          - name: pull image From docker hub
+            run: docker pull bayrambayraktar/node-product-user-service:latest
+          - name: Run Docker Container
+            run: docker run -d -p 4000:4000 --name nodejs-app-container -e MONGO_PASSWORD='${{secrets.MONGO_PASSWORD}}' bayrambayraktar/node-product-user-service
 
